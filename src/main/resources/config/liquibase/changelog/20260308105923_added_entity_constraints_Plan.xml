@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Plan.
+    -->
+    <changeSet id="20260308105923-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="patient_id"
+                                 baseTableName="plan"
+                                 constraintName="fk_plan__patient_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="patient"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="practitioner_id"
+                                 baseTableName="plan"
+                                 constraintName="fk_plan__practitioner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="practitioner"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="exercise_id"
+                                 baseTableName="plan"
+                                 constraintName="fk_plan__exercise_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exercise"
+                                 />
+    </changeSet>
+</databaseChangeLog>

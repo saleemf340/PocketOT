@@ -1,0 +1,59 @@
+{
+  "annotations": {
+    "changelogDate": "20260308105920",
+    "enableAudit": true
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "idDocument",
+      "fieldType": "IdDocument",
+      "fieldValues": "SOUTH_AFRICAN_ID,PASSPORT"
+    },
+    {
+      "fieldName": "idNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOfBirth",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "registrationNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "verified",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "practitionerType",
+      "fieldType": "PractitionerType",
+      "fieldValues": "OCCUPATIONAL_THERAPIST,PHYSIOTHERAPRIST"
+    }
+  ],
+  "name": "Practitioner",
+  "relationships": [
+    {
+      "otherEntityName": "organization",
+      "relationshipName": "organization",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,156 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-plan-heading" data-cy="PlanCreateUpdateHeading" jhiTranslate="pocketOtApp.plan.home.createOrEditLabel">
+        Create or edit a Plan
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="pocketOtApp.plan.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_uuid" jhiTranslate="pocketOtApp.plan.uuid">Uuid</label>
+          <input type="text" class="form-control" name="uuid" id="field_uuid" data-cy="uuid" formControlName="uuid" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exerciseRepitition" jhiTranslate="pocketOtApp.plan.exerciseRepitition"
+            >Exercise Repitition</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="exerciseRepitition"
+            id="field_exerciseRepitition"
+            data-cy="exerciseRepitition"
+            formControlName="exerciseRepitition"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_planRepitition" jhiTranslate="pocketOtApp.plan.planRepitition">Plan Repitition</label>
+          <input
+            type="number"
+            class="form-control"
+            name="planRepitition"
+            id="field_planRepitition"
+            data-cy="planRepitition"
+            formControlName="planRepitition"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveFrom" jhiTranslate="pocketOtApp.plan.effectiveFrom">Effective From</label>
+          <div class="input-group">
+            <input
+              id="field_effectiveFrom"
+              data-cy="effectiveFrom"
+              type="text"
+              class="form-control"
+              name="effectiveFrom"
+              ngbDatepicker
+              #effectiveFromDp="ngbDatepicker"
+              formControlName="effectiveFrom"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveFromDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_effectiveTo" jhiTranslate="pocketOtApp.plan.effectiveTo">Effective To</label>
+          <div class="input-group">
+            <input
+              id="field_effectiveTo"
+              data-cy="effectiveTo"
+              type="text"
+              class="form-control"
+              name="effectiveTo"
+              ngbDatepicker
+              #effectiveToDp="ngbDatepicker"
+              formControlName="effectiveTo"
+            />
+            <button type="button" class="btn btn-secondary" (click)="effectiveToDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_patient" jhiTranslate="pocketOtApp.plan.patient">Patient</label>
+          <select
+            class="form-control"
+            id="field_patient"
+            data-cy="patient"
+            name="patient"
+            formControlName="patient"
+            [compareWith]="comparePatient"
+          >
+            <option [ngValue]="null"></option>
+            @for (patientOption of patientsSharedCollection; track $index) {
+              <option [ngValue]="patientOption">{{ patientOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_practitioner" jhiTranslate="pocketOtApp.plan.practitioner">Practitioner</label>
+          <select
+            class="form-control"
+            id="field_practitioner"
+            data-cy="practitioner"
+            name="practitioner"
+            formControlName="practitioner"
+            [compareWith]="comparePractitioner"
+          >
+            <option [ngValue]="null"></option>
+            @for (practitionerOption of practitionersSharedCollection; track $index) {
+              <option [ngValue]="practitionerOption">{{ practitionerOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_exercise" jhiTranslate="pocketOtApp.plan.exercise">Exercise</label>
+          <select
+            class="form-control"
+            id="field_exercise"
+            data-cy="exercise"
+            name="exercise"
+            formControlName="exercise"
+            [compareWith]="compareExercise"
+          >
+            <option [ngValue]="null"></option>
+            @for (exerciseOption of exercisesSharedCollection; track $index) {
+              <option [ngValue]="exerciseOption">{{ exerciseOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

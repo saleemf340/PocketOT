@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (practitioner(); as practitionerRef) {
+      <div>
+        <h2 data-cy="practitionerDetailsHeading"><span jhiTranslate="pocketOtApp.practitioner.detail.title">Practitioner</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ practitionerRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.uuid">Uuid</span></dt>
+          <dd>
+            <span>{{ practitionerRef.uuid }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.idDocument">Id Document</span></dt>
+          <dd>
+            <span [jhiTranslate]="'pocketOtApp.IdDocument.' + (practitionerRef.idDocument ?? 'null')">{{
+              { null: '', SOUTH_AFRICAN_ID: 'SOUTH_AFRICAN_ID', PASSPORT: 'PASSPORT' }[practitionerRef.idDocument ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.idNumber">Id Number</span></dt>
+          <dd>
+            <span>{{ practitionerRef.idNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.dateOfBirth">Date Of Birth</span></dt>
+          <dd>
+            <span>{{ practitionerRef.dateOfBirth | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ practitionerRef.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ practitionerRef.lastName }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.registrationNumber">Registration Number</span></dt>
+          <dd>
+            <span>{{ practitionerRef.registrationNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.verified">Verified</span></dt>
+          <dd>
+            <span>{{ practitionerRef.verified }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.practitionerType">Practitioner Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'pocketOtApp.PractitionerType.' + (practitionerRef.practitionerType ?? 'null')">{{
+              { null: '', OCCUPATIONAL_THERAPIST: 'OCCUPATIONAL_THERAPIST', PHYSIOTHERAPRIST: 'PHYSIOTHERAPRIST' }[
+                practitionerRef.practitionerType ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.practitioner.organization">Organization</span></dt>
+          <dd>
+            @if (practitioner()!.organization) {
+              <div>
+                <a [routerLink]="['/organization', practitioner()!.organization?.id, 'view']">{{ practitionerRef.organization?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/practitioner', practitionerRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

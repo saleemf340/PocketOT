@@ -1,0 +1,143 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-practitioner-heading"
+        data-cy="PractitionerCreateUpdateHeading"
+        jhiTranslate="pocketOtApp.practitioner.home.createOrEditLabel"
+      >
+        Create or edit a Practitioner
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="pocketOtApp.practitioner.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_uuid" jhiTranslate="pocketOtApp.practitioner.uuid">Uuid</label>
+          <input type="text" class="form-control" name="uuid" id="field_uuid" data-cy="uuid" formControlName="uuid" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_idDocument" jhiTranslate="pocketOtApp.practitioner.idDocument">Id Document</label>
+          <select class="form-control" name="idDocument" formControlName="idDocument" id="field_idDocument" data-cy="idDocument">
+            <option [ngValue]="null">{{ 'pocketOtApp.IdDocument.null' | translate }}</option>
+            @for (idDocument of idDocumentValues; track $index) {
+              <option [value]="idDocument">{{ 'pocketOtApp.IdDocument.' + idDocument | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_idNumber" jhiTranslate="pocketOtApp.practitioner.idNumber">Id Number</label>
+          <input type="text" class="form-control" name="idNumber" id="field_idNumber" data-cy="idNumber" formControlName="idNumber" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateOfBirth" jhiTranslate="pocketOtApp.practitioner.dateOfBirth">Date Of Birth</label>
+          <div class="input-group">
+            <input
+              id="field_dateOfBirth"
+              data-cy="dateOfBirth"
+              type="text"
+              class="form-control"
+              name="dateOfBirth"
+              ngbDatepicker
+              #dateOfBirthDp="ngbDatepicker"
+              formControlName="dateOfBirth"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateOfBirthDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_firstName" jhiTranslate="pocketOtApp.practitioner.firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastName" jhiTranslate="pocketOtApp.practitioner.lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_registrationNumber" jhiTranslate="pocketOtApp.practitioner.registrationNumber"
+            >Registration Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="registrationNumber"
+            id="field_registrationNumber"
+            data-cy="registrationNumber"
+            formControlName="registrationNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_verified" jhiTranslate="pocketOtApp.practitioner.verified">Verified</label>
+          <input type="checkbox" class="form-check" name="verified" id="field_verified" data-cy="verified" formControlName="verified" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_practitionerType" jhiTranslate="pocketOtApp.practitioner.practitionerType"
+            >Practitioner Type</label
+          >
+          <select
+            class="form-control"
+            name="practitionerType"
+            formControlName="practitionerType"
+            id="field_practitionerType"
+            data-cy="practitionerType"
+          >
+            <option [ngValue]="null">{{ 'pocketOtApp.PractitionerType.null' | translate }}</option>
+            @for (practitionerType of practitionerTypeValues; track $index) {
+              <option [value]="practitionerType">{{ 'pocketOtApp.PractitionerType.' + practitionerType | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_organization" jhiTranslate="pocketOtApp.practitioner.organization">Organization</label>
+          <select
+            class="form-control"
+            id="field_organization"
+            data-cy="organization"
+            name="organization"
+            formControlName="organization"
+            [compareWith]="compareOrganization"
+          >
+            <option [ngValue]="null"></option>
+            @for (organizationOption of organizationsSharedCollection; track $index) {
+              <option [ngValue]="organizationOption">{{ organizationOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

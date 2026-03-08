@@ -1,0 +1,9 @@
+{
+  "pocketOtApp": {
+    "PractitionerType": {
+      "null": "",
+      "OCCUPATIONAL_THERAPIST": "OCCUPATIONAL_THERAPIST",
+      "PHYSIOTHERAPRIST": "PHYSIOTHERAPRIST"
+    }
+  }
+}

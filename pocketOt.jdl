@@ -1,0 +1,71 @@
+@EnableAudit
+entity Patient {
+  uuid UUID
+  idDocument IdDocument
+  idNumber String
+  dateOfBirth LocalDate
+  firstName String
+  lastName String
+}
+
+@EnableAudit
+entity Practitioner {
+  uuid UUID
+  idDocument IdDocument
+  idNumber String
+  dateOfBirth LocalDate
+  firstName String
+  lastName String
+  registrationNumber String
+  verified Boolean
+  practitionerType PractitionerType
+}
+
+@EnableAudit
+entity Organization {
+  uuid UUID
+  name String
+  registrationNumber String
+  verified Boolean
+}
+
+@EnableAudit
+entity Exercise {
+  uuid UUID
+  name String
+  videoLink String
+}
+
+@EnableAudit
+entity Plan {
+  uuid UUID
+  exerciseRepitition Integer
+  planRepitition Integer
+  effectiveFrom LocalDate
+  effectiveTo LocalDate
+
+}
+
+enum IdDocument {
+  SOUTH_AFRICAN_ID, PASSPORT
+}
+
+enum PractitionerType {
+  OCCUPATIONAL_THERAPIST, PHYSIOTHERAPRIST
+}
+
+relationship ManyToOne {
+  Plan{Patient} to Patient
+  Plan{Practitioner} to Practitioner
+  Plan{Exercise} to Exercise
+}
+
+relationship ManyToOne {
+  Practitioner{Organization} to Organization
+}
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job

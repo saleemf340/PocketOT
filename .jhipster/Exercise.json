@@ -1,0 +1,26 @@
+{
+  "annotations": {
+    "changelogDate": "20260308105922",
+    "enableAudit": true
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "videoLink",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Exercise",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

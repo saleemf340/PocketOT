@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20260308105921",
+    "enableAudit": true
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "registrationNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "verified",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Organization",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

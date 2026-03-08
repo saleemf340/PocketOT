@@ -1,0 +1,155 @@
+<div>
+  <h2 id="page-heading" data-cy="PlanHeading">
+    <span jhiTranslate="pocketOtApp.plan.home.title">Plans</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="pocketOtApp.plan.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-plan"
+        [routerLink]="['/plan/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="pocketOtApp.plan.home.createLabel">Create a new Plan</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (plans().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="pocketOtApp.plan.home.notFound">No Plans found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="uuid">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.uuid">Uuid</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="exerciseRepitition">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.exerciseRepitition">Exercise Repitition</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="planRepitition">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.planRepitition">Plan Repitition</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveFrom">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.effectiveFrom">Effective From</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="effectiveTo">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.effectiveTo">Effective To</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="patient.id">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.patient">Patient</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="practitioner.id">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.practitioner">Practitioner</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="exercise.id">
+              <div class="d-flex">
+                <span jhiTranslate="pocketOtApp.plan.exercise">Exercise</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (plan of plans(); track trackId(plan)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/plan', plan.id, 'view']">{{ plan.id }}</a>
+              </td>
+              <td>{{ plan.uuid }}</td>
+              <td>{{ plan.exerciseRepitition }}</td>
+              <td>{{ plan.planRepitition }}</td>
+              <td>{{ plan.effectiveFrom | formatMediumDate }}</td>
+              <td>{{ plan.effectiveTo | formatMediumDate }}</td>
+              <td>
+                @if (plan.patient) {
+                  <div>
+                    <a [routerLink]="['/patient', plan.patient.id, 'view']">{{ plan.patient.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (plan.practitioner) {
+                  <div>
+                    <a [routerLink]="['/practitioner', plan.practitioner.id, 'view']">{{ plan.practitioner.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (plan.exercise) {
+                  <div>
+                    <a [routerLink]="['/exercise', plan.exercise.id, 'view']">{{ plan.exercise.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/plan', plan.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/plan', plan.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(plan)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

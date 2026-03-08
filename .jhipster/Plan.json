@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20260308105923",
+    "enableAudit": true
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "exerciseRepitition",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "planRepitition",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "effectiveFrom",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "effectiveTo",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Plan",
+  "relationships": [
+    {
+      "otherEntityName": "patient",
+      "relationshipName": "patient",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "practitioner",
+      "relationshipName": "practitioner",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "exercise",
+      "relationshipName": "exercise",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

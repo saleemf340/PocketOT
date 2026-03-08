@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (patient(); as patientRef) {
+      <div>
+        <h2 data-cy="patientDetailsHeading"><span jhiTranslate="pocketOtApp.patient.detail.title">Patient</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ patientRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.uuid">Uuid</span></dt>
+          <dd>
+            <span>{{ patientRef.uuid }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.idDocument">Id Document</span></dt>
+          <dd>
+            <span [jhiTranslate]="'pocketOtApp.IdDocument.' + (patientRef.idDocument ?? 'null')">{{
+              { null: '', SOUTH_AFRICAN_ID: 'SOUTH_AFRICAN_ID', PASSPORT: 'PASSPORT' }[patientRef.idDocument ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.idNumber">Id Number</span></dt>
+          <dd>
+            <span>{{ patientRef.idNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.dateOfBirth">Date Of Birth</span></dt>
+          <dd>
+            <span>{{ patientRef.dateOfBirth | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ patientRef.firstName }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.patient.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ patientRef.lastName }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/patient', patientRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

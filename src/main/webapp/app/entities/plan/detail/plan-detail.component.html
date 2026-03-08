@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (plan(); as planRef) {
+      <div>
+        <h2 data-cy="planDetailsHeading"><span jhiTranslate="pocketOtApp.plan.detail.title">Plan</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ planRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.uuid">Uuid</span></dt>
+          <dd>
+            <span>{{ planRef.uuid }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.exerciseRepitition">Exercise Repitition</span></dt>
+          <dd>
+            <span>{{ planRef.exerciseRepitition }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.planRepitition">Plan Repitition</span></dt>
+          <dd>
+            <span>{{ planRef.planRepitition }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.effectiveFrom">Effective From</span></dt>
+          <dd>
+            <span>{{ planRef.effectiveFrom | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.effectiveTo">Effective To</span></dt>
+          <dd>
+            <span>{{ planRef.effectiveTo | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.patient">Patient</span></dt>
+          <dd>
+            @if (plan()!.patient) {
+              <div>
+                <a [routerLink]="['/patient', plan()!.patient?.id, 'view']">{{ planRef.patient?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.practitioner">Practitioner</span></dt>
+          <dd>
+            @if (plan()!.practitioner) {
+              <div>
+                <a [routerLink]="['/practitioner', plan()!.practitioner?.id, 'view']">{{ planRef.practitioner?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.plan.exercise">Exercise</span></dt>
+          <dd>
+            @if (plan()!.exercise) {
+              <div>
+                <a [routerLink]="['/exercise', plan()!.exercise?.id, 'view']">{{ planRef.exercise?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/plan', planRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20260308105919",
+    "enableAudit": true
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "uuid",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "idDocument",
+      "fieldType": "IdDocument",
+      "fieldValues": "SOUTH_AFRICAN_ID,PASSPORT"
+    },
+    {
+      "fieldName": "idNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOfBirth",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Patient",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

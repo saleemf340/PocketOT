@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (organization(); as organizationRef) {
+      <div>
+        <h2 data-cy="organizationDetailsHeading"><span jhiTranslate="pocketOtApp.organization.detail.title">Organization</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ organizationRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.organization.uuid">Uuid</span></dt>
+          <dd>
+            <span>{{ organizationRef.uuid }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.organization.name">Name</span></dt>
+          <dd>
+            <span>{{ organizationRef.name }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.organization.registrationNumber">Registration Number</span></dt>
+          <dd>
+            <span>{{ organizationRef.registrationNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="pocketOtApp.organization.verified">Verified</span></dt>
+          <dd>
+            <span>{{ organizationRef.verified }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/organization', organizationRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

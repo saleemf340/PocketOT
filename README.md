@@ -22,6 +22,20 @@ In the project root, JHipster generates configuration files for tools like git, 
 
 ## Development
 
+To start the application in development mode with hot reload (both frontend and backend), run:
+
+```bash
+npm run hot-reload
+```
+
+This command will:
+
+- Start the Angular frontend with Hot Module Replacement (HMR) enabled.
+- Start the Spring Boot backend with DevTools for automatic restarts.
+- Use BrowserSync to proxy both at [http://localhost:9000](http://localhost:9000).
+
+_Note: For backend changes to trigger an automatic restart, you must compile the changed Java files (e.g., by saving in an IDE that has "Build on save" enabled, or by running `./mvnw compile` in a separate terminal)._
+
 ### OAuth 2.0 / OpenID Connect
 
 Congratulations! You've selected an excellent way to secure your JHipster application. If you're not sure what OAuth and OpenID Connect (OIDC) are, please see [What the Heck is OAuth?](https://developer.okta.com/blog/2017/06/21/what-the-heck-is-oauth)
@@ -173,8 +187,7 @@ You will only need to run this command when dependencies change in [package.json
 
 We use npm scripts and [Angular CLI][] with [Webpack][] as our build system.
 
-Run the following commands in two separate terminals to create a blissful development experience where your browser
-auto-refreshes when files change on your hard drive.
+Run the following commands in two separate terminals for development (or use `npm run hot-reload` in a single terminal):
 
 ```
 ./mvnw

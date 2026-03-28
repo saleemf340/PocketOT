@@ -1,7 +1,11 @@
 package za.co.pocketot;
 
 import jakarta.annotation.PostConstruct;
+import java.awt.Desktop;
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -69,6 +73,27 @@ public class PocketOtApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+        openBrowserIfDev(env);
+    }
+
+    private static void openBrowserIfDev(Environment env) {
+        if (Arrays.asList(env.getActiveProfiles()).contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)) {
+            String protocol = Optional.ofNullable(env.getProperty("server.ssl.key-store")).map(key -> "https").orElse("http");
+            String serverPort = env.getProperty("server.port");
+            String contextPath = Optional.ofNullable(env.getProperty("server.servlet.context-path"))
+                .filter(StringUtils::isNotBlank)
+                .orElse("");
+            String url = protocol + "://localhost:" + serverPort + contextPath;
+            try {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    Desktop.getDesktop().browse(new URI(url));
+                } else {
+                    Runtime.getRuntime().exec("cmd /c start " + url);
+                }
+            } catch (IOException | URISyntaxException e) {
+                LOG.warn("Failed to open browser: {}", e.getMessage());
+            }
+        }
     }
 
     private static void logApplicationStartup(Environment env) {

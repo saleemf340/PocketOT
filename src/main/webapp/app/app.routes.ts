@@ -12,6 +12,12 @@ const routes: Routes = [
     title: 'home.title',
   },
   {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.component'),
+    title: 'Dashboard',
+    canActivate: [UserRouteAccessService],
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),
     outlet: 'navbar',
